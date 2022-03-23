@@ -1,7 +1,7 @@
 let jwt = require('jsonwebtoken');
-const config = require('./config.js');
+const config = require('./config.ts');
 
-let isAuthenticated = (req, res, next) => {
+let isAuthenticated = (req:any, res:any, next:any) => {
   let token = req.headers['token']; // Express headers are auto converted to lowercase
   if(!token || !token.startsWith('Bearer ')){
     return res.status(401).send({
@@ -14,7 +14,7 @@ let isAuthenticated = (req, res, next) => {
     token = token.slice(7, token.length);
   }
   if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
+    jwt.verify(token, config.secret, (err: any, decoded:any) => {
       if (err) {
         return res.status(401).send({
           success: false,

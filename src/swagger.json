@@ -1,0 +1,339 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "My Assignment",
+      "description": "Project Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "API for users in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "components": {        
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        }
+      },
+    "securityDefinitions": {
+        "bearerAuth": {
+          "name": "token",
+          "in": "header",
+          "type": "apiKey",
+          "value": "Bearer ",
+          "description": "JWT Authorization header"
+        }
+    },
+    "security": [ { "bearerAuth": [] } ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/register": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "Create new user in system",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "User that we want to create",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New user is created",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        } 
+      },
+      "/login": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "Create new user in system",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "User that we want to create",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "User jwt token created and user is logged in",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        } 
+      },
+      "/add-to-cart": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "Add product in the cart system",
+          "parameters": [
+            {
+              "name": "product",
+              "in": "body",
+              "description": "Add product to the cart",
+              "schema": {
+                "$ref": "#/definitions/AddToCart"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "product has been added into the cart",
+              "schema": {
+                "$ref": "#/definitions/AddToCart"
+              }
+            }
+          }
+        } 
+      },
+      "/shipping": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "Create shipping of product",
+          "parameters": [
+            {
+              "name": "product",
+              "in": "body",
+              "description": "Create shipping of product",
+              "schema": {
+                "$ref": "#/definitions/shipping"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "product shipping has been created",
+              "schema": {
+                "$ref": "#/definitions/shipping"
+              }
+            }
+          }
+        } 
+      },
+      "/payment": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "payment of product",
+          "parameters": [
+            {
+              "name": "product",
+              "in": "body",
+              "description": "payment of product",
+              "schema": {
+                "$ref": "#/definitions/shipping"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "payment of product has been done",
+              "schema": {
+                "$ref": "#/definitions/payment"
+              }
+            }
+          }
+        } 
+      },
+      "/confirmation": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "description": "confirmation of product",
+          "parameters": [
+            {
+              "name": "product",
+              "in": "body",
+              "description": "confirmation of product",
+              "schema": {
+                "$ref": "#/definitions/confirmation"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "confirmation of product has been done",
+              "schema": {
+                "$ref": "#/definitions/confirmation"
+              }
+            }
+          }
+        } 
+      }
+    },
+    
+    "definitions": {
+      "User": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "AddToCart": {
+        "required": [
+          "userId",
+          "productId"
+        ],
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "number"
+          }
+        }
+      },
+      "shipping": {
+        "required": [
+          "userId",
+          "productId",
+          "address",
+          "shipmentFee",
+          "shipmentStatus"
+        ],
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string"
+          },
+          "shipmentFee": {
+            "type": "string"
+          },
+          "shipmentStatus": {
+            "type": "string"
+          }
+        }
+      },
+      "payment": {
+        "required": [
+          "userId",
+          "productId",
+          "price",
+          "status",
+          "shippingId"
+        ],
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "number"
+          },
+          "price": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "shipmentId": {
+            "type": "number"
+          }
+        }
+      },
+      "confirmation": {
+        "required": [
+          "userId",
+          "productId",
+          "price",
+          "status",
+          "shippingId",
+          "confirmation"
+        ],
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "number"
+          },
+          "price": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "shipmentId": {
+            "type": "number"
+          },
+          "confirmation": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+
+  
